@@ -1,4 +1,4 @@
-# NA2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning
+# NA^2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning
 
 ## Introduction
 
