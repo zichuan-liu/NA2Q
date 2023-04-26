@@ -18,10 +18,10 @@ bash install_sc2.sh
 
 This will download SC2 into the 3rdparty folder and copy the maps necessary to run over.
 ### Requirements
-- Python 3.8+
+- Python 3.6+
 - pip packages listed in requirements.txt
 
-The requirements.txt file can be used to install the necessary packages into a virtual environment (not recomended).
+The requirements.txt file can be used to install the necessary packages into a virtual environment (not recommended).
 
 ## Run an experiment 
 
