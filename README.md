@@ -1,25 +1,25 @@
-# NA^2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning
+# NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning
 
-## Introduction
-
-NA2Q is an **Interpretable Multi-Agent Reinforcement Learning** framework based on [PyMARL](https://github.com/oxwhirl/pymarl) via **Neural Attention Additive Models**, with a paper named "*NA2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning*". NA2Q is written in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks.
+Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learnin** accepted by ICML 2023. NA2Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl).
 
 ## Installation instructions
-
-Build the Dockerfile using 
+### Build the Dockerfile using 
 
 ```shell
 cd docker
 bash build.sh
 ```
 
-Set up StarCraft II and SMAC:
+### Set up StarCraft II and SMAC:
 
 ```shell
 bash install_sc2.sh
 ```
 
 This will download SC2 into the 3rdparty folder and copy the maps necessary to run over.
+### Requirements
+- Python 3.6+
+- pip packages listed in requirements.txt
 
 The requirements.txt file can be used to install the necessary packages into a virtual environment (not recomended).
 
@@ -40,16 +40,17 @@ They are all located in `src/config`.
 
 All results will be stored in the `Results` folder.
 
-## Citing NA2Q
+## Citing NA<sup>2</sup>Q
 
-If you use NA2Q in your research, please cite it in BibTeX format:
+If you find this repository useful for your research, please cite it in BibTeX format:
 
 ```tex
-@article{liu2023NA2Q,
-  title = {NA2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
+@article{liu2023NA<sup>2</sup>Q,
+  title = {NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
   author = {Liu, Zichuan and Zhu, Yuanyang and Chen, Chunlin},
   journal = {CoRR},
   volume = {abs/xxxx.xxxx},
   year = {2023},
 }
 ```
+In case of any questions, bugs, suggestions or improvements, please feel free to contact me at yuanyang@smail.nju.edu.cn or open an issue.
