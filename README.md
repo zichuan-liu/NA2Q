@@ -1,6 +1,6 @@
 # NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning
 
-Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learnin** accepted by ICML 2023. NA2Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl).
+Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning** accepted by ICML 2023. NA2Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl).
 
 ## Installation instructions
 ### Build the Dockerfile using 
@@ -18,7 +18,7 @@ bash install_sc2.sh
 
 This will download SC2 into the 3rdparty folder and copy the maps necessary to run over.
 ### Requirements
-- Python 3.6+
+- Python 3.8+
 - pip packages listed in requirements.txt
 
 The requirements.txt file can be used to install the necessary packages into a virtual environment (not recomended).
