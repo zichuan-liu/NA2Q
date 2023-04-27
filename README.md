@@ -1,6 +1,6 @@
 # NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning
 
-Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning** accepted by ICML 2023. NA2Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl).
+Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning** accepted by ICML 2023. NA2Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl). [paper](https://arxiv.org/abs/2304.13383)
 
 ## Installation instructions
 ### Build the Dockerfile using 
@@ -45,11 +45,11 @@ All results will be stored in the `Results` folder.
 If you find this repository useful for your research, please cite it in BibTeX format:
 
 ```tex
-@article{liu2023NA2Q,
-  title = {NA2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
+@article{liu2023ntextatext2q,
+  title = {NA^2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
   author = {Liu, Zichuan and Zhu, Yuanyang and Chen, Chunlin},
   journal = {CoRR},
-  volume = {abs/xxxx.xxxx},
+  volume = {2304.13383},
   year = {2023},
 }
 ```
