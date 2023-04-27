@@ -27,7 +27,7 @@ The requirements.txt file can be used to install the necessary packages into a v
 
 ```shell
 # demo sc2
-python src/main.py --config=qnam --env-config=sc2 with env_args.map_name=MMM2 gpu_id=0 t_max=2010000 epsilon_anneal_time=50000 seed=1
+python src/main.py --config=qnam --env-config=sc2 with env_args.map_name=8m_vs_9m gpu_id=0 t_max=2010000 epsilon_anneal_time=50000 seed=1
 # demo foraging
 nohup python src/main.py --config=qnam --env-config=foraging with env_args.map_name=lbf-4-2 use_cuda=False seed=1 &
 ```
@@ -49,7 +49,7 @@ If you find this repository useful for your research, please cite it in BibTeX f
   title = {NA^2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
   author = {Liu, Zichuan and Zhu, Yuanyang and Chen, Chunlin},
   journal = {CoRR},
-  volume = {2304.13383},
+  volume = {abs/2304.13383},
   year = {2023},
 }
 ```
