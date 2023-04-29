@@ -45,12 +45,12 @@ All results will be stored in the `Results` folder.
 If you find this repository useful for your research, please cite it in BibTeX format:
 
 ```tex
-@article{liu2023ntextatext2q,
-  title = {NA^2Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
+@article{liu2023na2q,
+  title={{NA$^2$Q}: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
   author = {Liu, Zichuan and Zhu, Yuanyang and Chen, Chunlin},
   journal = {CoRR},
   volume = {abs/2304.13383},
   year = {2023},
 }
 ```
-In case of any questions, bugs, suggestions or improvements, please feel free to contact me at yuanyang@smail.nju.edu.cn or open an issue.
+In case of any questions, bugs, suggestions or improvements, please feel free to drop me at yuanyang@smail.nju.edu.cn or open an issue.
