@@ -1,6 +1,6 @@
 # NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning
 
-Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning** accepted by ICML 2023. NA<sup>2</sup>Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl). [[paper]](https://arxiv.org/abs/2304.13383) [[code]](https://github.com/zichuan-liu/NA2Q)
+Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning** accepted by ICML 2023. NA<sup>2</sup>Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl). [[paper]](https://proceedings.mlr.press/v202/liu23be.html) [[code]](https://github.com/zichuan-liu/NA2Q)
 
 ## Installation instructions
 ### Build the Dockerfile using 
@@ -45,12 +45,17 @@ All results will be stored in the `Results` folder.
 If you find this repository useful for your research, please cite it in BibTeX format:
 
 ```tex
-@article{liu2023na2q,
-  title={{NA$^2$Q}: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
-  author = {Liu, Zichuan and Zhu, Yuanyang and Chen, Chunlin},
-  journal = {CoRR},
-  volume = {abs/2304.13383},
-  year = {2023},
+@inproceedings{liu2023na2q,
+  title = 	 {{NA$^2$Q}: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning},
+  author =       {Liu, Zichuan and Zhu, Yuanyang and Chen, Chunlin},
+  booktitle = 	 {Proceedings of the 40th International Conference on Machine Learning},
+  pages = 	 {22539--22558},
+  year = 	 {2023},
+  volume = 	 {202},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {23--29 Jul},
+  publisher =    {PMLR},
+  url = 	 {https://proceedings.mlr.press/v202/liu23be.html},
 }
 ```
 In case of any questions, bugs, suggestions or improvements, please feel free to drop me at yuanyang@smail.nju.edu.cn or open an issue.
