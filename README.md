@@ -58,4 +58,4 @@ If you find this repository useful for your research, please cite it in BibTeX f
   url = 	 {https://proceedings.mlr.press/v202/liu23be.html},
 }
 ```
-In case of any questions, bugs, suggestions or improvements, please feel free to drop me at yuanyang@smail.nju.edu.cn or open an issue.
+In case of any questions, bugs, suggestions or improvements, please feel free to drop me or open an issue.
