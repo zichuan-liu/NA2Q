@@ -80,4 +80,4 @@ If you find this repository useful for your research, please cite it in BibTeX f
 ```
 In case of any questions, bugs, suggestions or improvements, please feel free to drop me or open an issue.
 
-If you need the experimental results data from our paper, please contact me at *zichuanliu@smail.nju.edu.cn* and I'll be happy to share them!
+**If you need the experimental results data from our paper, please contact me at *zichuanliu@smail.nju.edu.cn* and I'll be happy to share them!**
