@@ -1,11 +1,15 @@
+# From https://github.com/wjh720/QPLEX/, added here for convenience.
 import copy
 from components.episode_buffer import EpisodeBatch
 from modules.mixers.vdn import VDNMixer
 from modules.mixers.qmix import QMixer
+from modules.mixers.qatten import QattenMixer
 import torch as th
 from torch.optim import RMSprop
+import numpy as np
 
-class QLearner:
+
+class QattenLearner:
     def __init__(self, mac, scheme, logger, args):
         self.args = args
         self.mac = mac
@@ -21,6 +25,8 @@ class QLearner:
                 self.mixer = VDNMixer()
             elif args.mixer == "qmix":
                 self.mixer = QMixer(args)
+            elif args.mixer == "qatten":
+                self.mixer = QattenMixer(args)
             else:
                 raise ValueError("Mixer {} not recognised.".format(args.mixer))
             self.params += list(self.mixer.parameters())
@@ -33,7 +39,7 @@ class QLearner:
 
         self.log_stats_t = -self.args.learner_log_interval - 1
 
-    def train(self, batch: EpisodeBatch, t_env: int, episode_num: int):
+    def train(self, batch: EpisodeBatch, t_env: int, episode_num: int, show_demo=False, save_data=None):
         # Get the relevant quantities
         rewards = batch["reward"][:, :-1]
         actions = batch["actions"][:, :-1]
@@ -53,6 +59,17 @@ class QLearner:
         # Pick the Q-Values for the actions taken by each agent
         chosen_action_qvals = th.gather(mac_out[:, :-1], dim=3, index=actions).squeeze(3)  # Remove the last dim
 
+        x_mac_out = mac_out.clone().detach()
+        x_mac_out[avail_actions == 0] = -9999999
+        max_action_qvals, max_action_index = x_mac_out[:, :-1].max(dim=3)
+
+        max_action_index = max_action_index.detach().unsqueeze(3)
+        is_max_action = (max_action_index == actions).int().float()
+
+        if show_demo:
+            q_i_data = chosen_action_qvals.detach().cpu().numpy()
+            q_data = (max_action_qvals - chosen_action_qvals).detach().cpu().numpy()
+
         # Calculate the Q-Values necessary for the target
         target_mac_out = []
         self.target_mac.init_hidden(batch.batch_size)
@@ -64,7 +81,7 @@ class QLearner:
         target_mac_out = th.stack(target_mac_out[1:], dim=1)  # Concat across time
 
         # Mask out unavailable actions
-        target_mac_out[avail_actions[:, 1:] == 0] = -9999999  # From OG deepmarl
+        target_mac_out[avail_actions[:, 1:] == 0] = -9999999
 
         # Max over target Q-Values
         if self.args.double_q:
@@ -73,29 +90,32 @@ class QLearner:
             mac_out_detach[avail_actions == 0] = -9999999
             cur_max_actions = mac_out_detach[:, 1:].max(dim=3, keepdim=True)[1]
             target_max_qvals = th.gather(target_mac_out, 3, cur_max_actions).squeeze(3)
-
         else:
             target_max_qvals = target_mac_out.max(dim=3)[0]
+            cur_max_actions = target_mac_out.max(dim=3, keepdim=True)[1]  # get the indices
+            # cur_max_actions: (episode_batch, episode_length - 1, agent_num, 1)
+        target_next_actions = cur_max_actions.detach()  # actions are also inputs for mixer network
 
         # Mix
         if self.mixer is not None:
-            chosen_action_qvals = self.mixer(chosen_action_qvals, batch["state"][:, :-1])
-            target_max_qvals = self.target_mixer(target_max_qvals, batch["state"][:, 1:])
+            if self.mixer == 'qatten':
+                chosen_action_qvals, q_attend_regs, head_entropies = self.mixer(chosen_action_qvals, batch["state"][:, :-1], actions)
+                target_max_qvals, _, _ = self.target_mixer(target_max_qvals, batch["state"][:, 1:], target_next_actions)
+            else:
+                chosen_action_qvals = self.mixer(chosen_action_qvals, batch["state"][:, :-1])
+                target_max_qvals = self.target_mixer(target_max_qvals, batch["state"][:, 1:])
 
-        N = getattr(self.args, "n_step", 1)
-        if N == 1:
-            # Calculate 1-step Q-Learning targets
-            targets = rewards + self.args.gamma * (1 - terminated) * target_max_qvals
-        else:
-            # N step Q-Learning targets
-            n_rewards = th.zeros_like(rewards)
-            gamma_tensor = th.tensor([self.args.gamma**i for i in range(N)], dtype=th.float, device=n_rewards.device)
-            steps = mask.flip(1).cumsum(dim=1).flip(1).clamp_max(N).long()
-            for i in range(batch.max_seq_length - 1):
-                n_rewards[:, i, 0] = ((rewards * mask)[:,i:i+N,0] * gamma_tensor[:(batch.max_seq_length - 1 - i)]).sum(dim=1)
-            indices = th.linspace(0, batch.max_seq_length-2, steps=batch.max_seq_length-1, device=steps.device).unsqueeze(1).long()
-            n_targets_terminated = th.gather(target_max_qvals*(1-terminated),dim=1,index=steps.long()+indices-1)
-            targets = n_rewards + th.pow(self.args.gamma, steps.float()) * n_targets_terminated
+        # Calculate 1-step Q-Learning targets
+        targets = rewards + self.args.gamma * (1 - terminated) * target_max_qvals
+
+        if show_demo:
+            tot_q_data = chosen_action_qvals.detach().cpu().numpy()
+            tot_target = targets.detach().cpu().numpy()
+            print('action_pair_%d_%d' % (save_data[0], save_data[1]), np.squeeze(q_data[:, 0]),
+                  np.squeeze(q_i_data[:, 0]), np.squeeze(tot_q_data[:, 0]), np.squeeze(tot_target[:, 0]))
+            self.logger.log_stat('action_pair_%d_%d' % (save_data[0], save_data[1]),
+                                 np.squeeze(tot_q_data[:, 0]), t_env)
+            return
 
         # Td-error
         td_error = (chosen_action_qvals - targets.detach())
@@ -106,7 +126,13 @@ class QLearner:
         masked_td_error = td_error * mask
 
         # Normal L2 loss, take mean over actual data
-        loss = (masked_td_error ** 2).sum() / mask.sum()
+        if self.mixer == 'qatten':
+            loss = (masked_td_error ** 2).sum() / mask.sum() + q_attend_regs
+        else:
+            loss = (masked_td_error ** 2).sum() / mask.sum()
+
+        masked_hit_prob = th.mean(is_max_action, dim=2) * mask
+        hit_prob = masked_hit_prob.sum() / mask.sum()
 
         # Optimise
         self.optimiser.zero_grad()
@@ -120,13 +146,14 @@ class QLearner:
 
         if t_env - self.log_stats_t >= self.args.learner_log_interval:
             self.logger.log_stat("loss", loss.item(), t_env)
+            self.logger.log_stat("hit_prob", hit_prob.item(), t_env)
             self.logger.log_stat("grad_norm", grad_norm, t_env)
             mask_elems = mask.sum().item()
             self.logger.log_stat("td_error_abs", (masked_td_error.abs().sum().item()/mask_elems), t_env)
             self.logger.log_stat("q_taken_mean", (chosen_action_qvals * mask).sum().item()/(mask_elems * self.args.n_agents), t_env)
             self.logger.log_stat("target_mean", (targets * mask).sum().item()/(mask_elems * self.args.n_agents), t_env)
-            agent_utils = (th.gather(mac_out[:, :-1], dim=3, index=actions).squeeze(3) * mask).sum().item() / (mask_elems * self.args.n_agents)
-            self.logger.log_stat("agent_utils", agent_utils, t_env)
+            if self.mixer == 'qatten':
+                [self.logger.log_stat('head_{}_entropy'.format(h_i), ent.item(), t_env) for h_i, ent in enumerate(head_entropies)]
             self.log_stats_t = t_env
 
     def _update_targets(self):

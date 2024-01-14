@@ -7,7 +7,6 @@ from components.episode_buffer import EpisodeBatch
 from modules.mixers.qnam import QNAMer
 from modules.intrinsic.qnam_context import VAE
 from torch.optim import RMSprop, Adam
-import matplotlib.pyplot as plt
 import time
 
 
