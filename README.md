@@ -2,6 +2,26 @@
 
 Code for **NA<sup>2</sup>Q: Neural Attention Additive Model for Interpretable Multi-Agent Q-Learning** accepted by ICML 2023. NA<sup>2</sup>Q is implemented in PyTorch and tested on challenging tasks [LBF](https://github.com/semitable/lb-foraging) and [SMAC](https://github.com/oxwhirl/smac) as benchmarks, which is based on [PyMARL](https://github.com/oxwhirl/pymarl). [[paper]](https://proceedings.mlr.press/v202/liu23be.html) [[code]](https://github.com/zichuan-liu/NA2Q)
 
+
+## Python MARL framework
+
+This PyMARL includes baselines of the following algorithms:
+- [**QMIX**: QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning](https://arxiv.org/abs/1803.11485)
+- [**COMA**: Counterfactual Multi-Agent Policy Gradients](https://arxiv.org/abs/1705.08926)
+- [**VDN**: Value-Decomposition Networks For Cooperative Multi-Agent Learning](https://arxiv.org/abs/1706.05296) 
+- [**IQL**: Independent Q-Learning](https://arxiv.org/abs/1511.08779)
+- [**QTRAN**: QTRAN: Learning to Factorize with Transformation for Cooperative Multi-Agent Reinforcement Learning](https://arxiv.org/abs/1905.05408)
+- [**WQMIX**: Weighted Qmix: Expanding Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/file/73a427badebe0e32caa2e1fc7530b7f3-Paper.pdf)
+- [**Qatten**: Qatten: A General Framework for Cooperative Multiagent Reinforcement Learning](https://arxiv.org/abs/2002.03939)
+- [**QPLEX**: Qplex: Duplex Dueling Multi-Agent Q-Learning](https://arxiv.org/abs/2008.01062)
+- [**MASAC**: Actor-Attention-Critic for Multi-Agent Reinforcement Learning](http://proceedings.mlr.press/v97/iqbal19a/iqbal19a.pdf)
+- [**SHAQ**: SHAQ: Incorporating Shapley Value Theory into Multi-Agent Q-Learning](https://arxiv.org/pdf/2105.15013.pdf)
+- [**SQDDPG**: QTRAN: Learning to Factorize with Transformation for Cooperative Multi-Agent Reinforcement Learning](https://arxiv.org/abs/1905.05408)
+- [**UPDET**: Updet: Universal Multi-Agent Reinforcement Learning via Policy Decoupling with Transformers](https://arxiv.org/abs/2101.08001)
+- [**CDS**: Celebrating Diversity in Shared Multi-Agent Reinforcement Learning](https://arxiv.org/abs/2106.02195)
+
+Thanks to all the original authors!
+
 ## Installation instructions
 ### Build the Dockerfile using 
 
@@ -59,3 +79,5 @@ If you find this repository useful for your research, please cite it in BibTeX f
 }
 ```
 In case of any questions, bugs, suggestions or improvements, please feel free to drop me or open an issue.
+
+If you need the experimental results data from our paper, please contact me at *zichuanliu@smail.nju.edu.cn* and I'll be happy to share them!
