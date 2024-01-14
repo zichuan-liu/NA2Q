@@ -20,7 +20,7 @@ This PyMARL includes baselines of the following algorithms:
 - [**UPDET**: Updet: Universal Multi-Agent Reinforcement Learning via Policy Decoupling with Transformers](https://arxiv.org/abs/2101.08001)
 - [**CDS**: Celebrating Diversity in Shared Multi-Agent Reinforcement Learning](https://arxiv.org/abs/2106.02195)
 
-Thanks to all the original authors!
+Thanks to all the original authors and the [SMAC](https://github.com/oxwhirl/smac) environment.!
 
 ## Installation instructions
 ### Build the Dockerfile using 
