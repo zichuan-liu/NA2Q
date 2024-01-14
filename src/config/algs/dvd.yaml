@@ -1,4 +1,4 @@
-# --- VDN specific parameters ---
+# --- QMIX specific parameters ---
 
 # use epsilon greedy action selector
 action_selector: "epsilon_greedy"
@@ -15,8 +15,15 @@ target_update_interval: 200
 
 # use the Q_Learner to train
 agent_output_type: "q"
-learner: "q_learner"
+learner: "dvd_learner"
 double_q: True
-mixer: "vdn"
+mixer: "graphmix"
+mixing_embed_dim: 32
+hypernet_layers: 2
+hypernet_embed: 64
+is_gnn: False
 
-name: "vdn"
+# local loss coefficient
+lambda_local: 1
+
+name: "dvd"

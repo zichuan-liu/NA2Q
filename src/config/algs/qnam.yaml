@@ -24,7 +24,7 @@ mixer: "qnam"
 mixing_embed_dim: 32
 hypernet_layers: 2
 hypernet_embed: 64
-obs_agent_id: False # Have included the agent's one_hot id in the observation
+obs_agent_id: False # Include the agent's one_hot id in the observation due to local Q_i = Q_i^s+ Q_i^I
 burn_in_period: 100
 mix_nary: [1, 2]  # mix nam n-ary
 beta_vae: 0.1 # vae latent loss beta

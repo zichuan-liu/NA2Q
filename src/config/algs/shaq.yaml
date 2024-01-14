@@ -1,0 +1,33 @@
+# --- Shapley Q-learning specific parameters ---
+
+# use epsilon greedy action selector
+action_selector: "epsilon_greedy"
+epsilon_start: 1.0
+epsilon_finish: 0.05
+epsilon_anneal_time: 50000
+# epsilon_anneal_time: 1000000
+
+runner: "episode"
+
+buffer_size: 5000
+
+# update the target network every {} episodes
+target_update_interval: 200
+
+# use the Q_Learner to train
+agent_output_type: "q"
+learner: "shaq_learner"
+mixer: "shaq"
+mixing_embed_dim: 32
+hypernet_embed: 64
+hypernet_layers: 2
+double_q: True
+n_step: 1
+# if given None, it will be automatically learning alpha. If given some decimals, it will be applied as alpha_estimates.
+manual_alpha_estimates: null
+# give the sample size for coalition sampling
+sample_size: 10
+# lr for updating alpha
+alpha_lr: 0.0005
+# name of module
+name: "shaq"

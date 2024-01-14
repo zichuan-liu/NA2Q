@@ -1,4 +1,5 @@
-# --- VDN specific parameters ---
+# From https://github.com/wjh720/QPLEX/
+# --- Qatten specific parameters ---
 
 # use epsilon greedy action selector
 action_selector: "epsilon_greedy"
@@ -15,8 +16,18 @@ target_update_interval: 200
 
 # use the Q_Learner to train
 agent_output_type: "q"
-learner: "q_learner"
+learner: "dmaq_qatten_learner"
 double_q: True
-mixer: "vdn"
+mixer: "dmaq"
+mixing_embed_dim: 32
+hypernet_embed: 64
+adv_hypernet_layers: 3
+adv_hypernet_embed: 64
 
-name: "vdn"
+num_kernel: 10
+is_minus_one: True
+weighted_head: True
+is_adv_attention: True
+is_stop_gradient: True
+
+name: "qplex"
